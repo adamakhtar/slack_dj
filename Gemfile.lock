@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/robodisco/glo.git
+  revision: 287cc3eb65c3424a40425f01af8cab246c81d04b
+  specs:
+    glo (0.1.0)
+      activesupport
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -164,6 +171,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   dotenv-rails
+  glo!
   jbuilder (~> 2.0)
   jquery-rails
   listen (~> 3.0.5)
