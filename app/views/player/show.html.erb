@@ -1,0 +1,49 @@
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.js"></script> -->
+
+<% if @video.present? %>
+
+  <div id="player"></div>
+
+  <div class="alert alert--notice" style="display: none;">
+    <p>No more videos to play. Add some via slack</p>
+  </div>
+
+  <script>
+    var tag = document.createElement('script');
+
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '390',
+        width: '640',
+        videoId: '<%= @video.youtube_id %>',
+        playerVars: {
+          // controls: 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.ENDED) {
+        window.App.player.next(player.getVideoData().video_id);
+      }
+    }
+  </script>
+
+<% else %>
+  <div class="alert alert--notice">
+    <p>No videos in playlist. Add some via slack and refresh page to play.</p>
+  </div>
+<% end %>
