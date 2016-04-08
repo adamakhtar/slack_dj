@@ -1,5 +1,5 @@
-class Player
-  def next
+class Player < ApplicationRecord
+  STATUSES = ['stopped', 'playing']
 
-  end
+  validates :status, inclusion: { in: STATUSES }
 end
