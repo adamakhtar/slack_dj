@@ -9,6 +9,10 @@ class Player < ApplicationRecord
 
   belongs_to :video, optional: true
 
+  def eject_video
+    update_attributes(video_id: nil)
+  end
+
   def stopped?
     status == "stopped"
   end
@@ -34,7 +38,7 @@ class Player < ApplicationRecord
 
   def stop!
     Player.transaction do
-      if playing? and update_attribute(:status, "stopped")
+      if playing? and eject_video and update_attribute(:status, "stopped")
         true
       else
         raise PlayerAlreadyStoppedError, "Player #{self.id} is already stopped."

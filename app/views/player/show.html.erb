@@ -1,10 +1,11 @@
 
+<% if @dj.finished? %>
+  <div class="alert alert--notice">
+    <p>No videos to play. Add some via slack</p>
+  </div>
+<% end %>
 
   <div id="player"></div>
-
-  <div class="alert alert--notice" style="display: none;">
-    <p>No more videos to play. Add some via slack</p>
-  </div>
 
   <script type="text/javascript">
 
@@ -53,8 +54,8 @@
 
     var videoId;
 
-    <% if @video.present? %>
-      videoId = '<%= @video.youtube_id %>';
+    <% if @dj.playing? %>
+      videoId = '<%= @dj.current_video.youtube_id %>';
     <% end %>
 
 
@@ -82,11 +83,4 @@
     //   return player;
     // }
   </script>
-
-<% if @video.present? %>
-<% else %>
-  <div class="alert alert--notice">
-    <p>No videos in playlist. Add some via slack and refresh page to play.</p>
-  </div>
-<% end %>
 

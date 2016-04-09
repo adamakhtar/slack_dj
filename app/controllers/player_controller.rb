@@ -1,7 +1,8 @@
 class PlayerController < ApplicationController
   def show
-    if @video = Video.next_up
-      @video.played!
-    end
+    player = Player.first_or_create
+    playlist = Playlist.first_or_create
+    @dj = DJ.new(player, playlist)
+    @dj.start! if @dj.waiting?
   end
 end

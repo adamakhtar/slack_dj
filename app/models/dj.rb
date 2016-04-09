@@ -8,6 +8,27 @@ class DJ
     @playlist = playlist
   end
 
+  # TODO - use whisper and listen for an event
+  def new_video_added!
+    start! if waiting?
+  end
+
+  def waiting?
+    player.stopped? and playlist.any_unplayed?
+  end
+
+  def finished?
+    player.stopped? and playlist.all_played?
+  end
+
+  def playing?
+    player.playing?
+  end
+
+  def current_video
+    player.video
+  end
+
   def start!
     if playlist.any_unplayed?
       player.play!(playlist.next_video)
@@ -24,12 +45,7 @@ class DJ
     if playlist.any_unplayed?
       player.switch!(playlist.next_video)
     else
-      # ...
+      stop!
     end
   end
 end
-
-
-
-
-

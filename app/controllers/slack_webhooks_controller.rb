@@ -4,12 +4,17 @@ class SlackWebhooksController < ApplicationController
 
   def create
     player = Player.first_or_create
-    result = AddVideo.call(youtube_url: "https://www.youtube.com/watch?v=5KU1EqeUuT4", player: player)
-    if result.success?
-      head :success
-    else
-      head :failure
-    end
+    playlist = Playlist.first_or_create
+    playlist.add_video!(url: shuffle_urls.first)
+
+    dj = DJ.new(player, playlist)
+    dj.new_video_added!
+
+    head :created
+
+    rescue StandardError => e
+      Rails.logger.error { "#{e.message} #{e.backtrace.join("\n")}" }
+      head :unprocessable_entity
   end
 
   private
@@ -22,6 +27,6 @@ class SlackWebhooksController < ApplicationController
       https://www.youtube.com/watch?v=1MPKDRqhZ3c
       https://www.youtube.com/watch?v=9hGIYiWXq2s
       https://www.youtube.com/watch?v=4Tr_tCRynfo
-    }
+    }.shuffle
   end
 end

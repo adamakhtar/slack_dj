@@ -32,7 +32,6 @@ RSpec.describe Player, :type => :model do
 
     it "stops" do
       player = create(:player, status: 'playing')
-
       player.stop!
       expect(player).to be_stopped
     end
