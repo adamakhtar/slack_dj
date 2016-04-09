@@ -3,9 +3,9 @@ class AddVideo
 
   def call
     video = Video.new(url: context.youtube_url)
-    video.save
-
-    if video.invalid?
+    if video.save and context.playlist.add(video)
+      trigger "playlist:video:added"
+    else
       context.fail!
       context.errors = video.errors.full_messages
     end

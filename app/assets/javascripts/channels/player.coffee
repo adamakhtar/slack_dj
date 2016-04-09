@@ -6,8 +6,9 @@ App.player = App.cable.subscriptions.create "PlayerChannel",
     # Called when the subscription has been terminated by the server
 
   received: (data) ->
+    console.log("received", data)
     if data.nextVideoId
-      window.player.loadVideoById({videoId: data.nextVideoId})
+      window.player.play(data.nextVideoId);
     else if data.playlistEnded
       $('.playlist-ended-alert').show()
 

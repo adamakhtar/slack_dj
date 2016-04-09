@@ -1,6 +1,4 @@
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.js"></script> -->
 
-<% if @video.present? %>
 
   <div id="player"></div>
 
@@ -8,42 +6,87 @@
     <p>No more videos to play. Add some via slack</p>
   </div>
 
-  <script>
+  <script type="text/javascript">
+
+    player = {
+      play: function(videoId){
+        if (_.isNil(this._player)) {
+          this._player = this.initializePlayer(videoId);
+        } else {
+          this._player.loadVideoById({videoId: videoId});
+        }
+      },
+
+      initializePlayer: function(videoId){
+         return new YT.Player('player', {
+            height: '390',
+            width: '640',
+            videoId: videoId,
+            playerVars: {
+              // controls: 0
+            },
+            events: {
+              'onReady': this.onPlayerReady,
+              'onStateChange': this.onPlayerStateChange
+            }
+         });
+      },
+
+      onPlayerReady: function(event) {
+        event.target.playVideo();
+      },
+
+      onPlayerStateChange: function(event) {
+        if (event.data == YT.PlayerState.ENDED) {
+          // TODO emit event and have channel listen for it?
+          window.App.player.next(player._player.getVideoData().video_id);
+        }
+      }
+    };
+
+
     var tag = document.createElement('script');
 
     tag.src = "https://www.youtube.com/iframe_api";
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    var player;
+    var videoId;
+
+    <% if @video.present? %>
+      videoId = '<%= @video.youtube_id %>';
+    <% end %>
+
+
     function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '390',
-        width: '640',
-        videoId: '<%= @video.youtube_id %>',
-        playerVars: {
-          // controls: 0
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      event.target.playVideo();
-    }
-
-    function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.ENDED) {
-        window.App.player.next(player.getVideoData().video_id);
+      if (!_.isNil(videoId)){
+        console.log("frame ready", videoId);
+        player.play(videoId);
       }
     }
+
+    // function createYouTubePlayer(videoId) {
+    //   player = new YT.Player('player', {
+    //     height: '390',
+    //     width: '640',
+    //     videoId: videoId,
+    //     playerVars: {
+    //       // controls: 0
+    //     },
+    //     events: {
+    //       'onReady': onPlayerReady,
+    //       'onStateChange': onPlayerStateChange
+    //     }
+    //   });
+
+    //   return player;
+    // }
   </script>
 
+<% if @video.present? %>
 <% else %>
   <div class="alert alert--notice">
     <p>No videos in playlist. Add some via slack and refresh page to play.</p>
   </div>
 <% end %>
+

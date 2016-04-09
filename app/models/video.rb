@@ -2,15 +2,12 @@ require 'cgi'
 
 class Video < ApplicationRecord
 
+  belongs_to :playlist
+
   before_validation :set_youtube_id
 
-  def next
-    self.class.where("id  > ? ", self.id).take
-  end
-
-  # Returns the next video which has yet to be played
-  def self.next_up
-    Video.unplayed.take
+  def self.oldest_first
+    order("created_at ASC")
   end
 
   def self.unplayed
@@ -27,6 +24,5 @@ class Video < ApplicationRecord
     return unless url.present?
     self.youtube_id = CGI.parse(URI.parse(url).query)["v"].first
   end
-
 end
 
