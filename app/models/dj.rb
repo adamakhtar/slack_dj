@@ -8,19 +8,19 @@ class DJ
     @playlist = playlist
   end
 
-  def start
+  def start!
     if playlist.any_unplayed?
-      player.play(playlist.next_video)
+      player.play!(playlist.next_video)
     else
       raise PlaylistAlreadyEndedError, "Playlist #{playlist.id} already ended"
     end
   end
 
-  def stop
+  def stop!
     player.stop!
   end
 
-  def next
+  def switch!
     if playlist.any_unplayed?
       player.switch!(playlist.next_video)
     else
