@@ -13,8 +13,13 @@ module Slackdj
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths += ['operations']
 
-    config.generators do |g|
-      g.javascript_engine :js
+    config.generators do |generate|
+      generate.helper false
+      generate.assets false
+      generate.request_specs false
+      generate.routing_specs false
+      generate.test_framework :rspec
+      generate.view_specs false
     end
   end
 end

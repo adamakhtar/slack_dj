@@ -7,7 +7,7 @@ class Player < ApplicationRecord
 
   validates :status, inclusion: { in: STATUSES }
 
-  belongs_to :video
+  belongs_to :video, optional: true
 
   def stopped?
     status == "stopped"

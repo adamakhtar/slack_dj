@@ -2,7 +2,7 @@ require 'cgi'
 
 class Video < ApplicationRecord
 
-  belongs_to :playlist
+  belongs_to :playlist, optional: true
 
   before_validation :set_youtube_id
 
@@ -16,6 +16,10 @@ class Video < ApplicationRecord
 
   def played!
     self.update_attribute(:played_at, Time.current)
+  end
+
+  def played?
+    played_at.present?
   end
 
   private
