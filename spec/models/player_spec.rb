@@ -12,6 +12,7 @@ RSpec.describe Player, :type => :model do
     it "plays given video and marks it as played" do
       video = create(:video)
       player = create(:player)
+      allow(Cable).to receive(:broadcast)
 
       player.play!(video)
 
@@ -19,6 +20,7 @@ RSpec.describe Player, :type => :model do
       expect(player.video).to eq video
       expect(player.video).to be_played
       expect(player).to be_playing
+      expect(Cable).to have_received(:broadcast).with("player_channel", nextVideoId: video.youtube_id)
     end
   end
 
