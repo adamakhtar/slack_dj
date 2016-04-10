@@ -2,12 +2,10 @@ class SlackWebhooksController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: :create
 
-  def create
-    player = Player.first_or_create
-    playlist = Playlist.first_or_create
-    playlist.add_video!(url: shuffle_urls.first)
+  before_action :authorize_team
 
-    dj = DJ.new(player, playlist)
+  def create
+    playlist.add_video!(url: shuffle_urls.first)
     dj.new_video_added!
 
     head :created
@@ -18,6 +16,34 @@ class SlackWebhooksController < ApplicationController
   end
 
   private
+
+  def authorize_team
+    if team.token != params[:token]
+      head :unprocessable_entity
+    end
+  end
+
+  def team
+    @_team ||= Team.find_by_slack_id(params[:team_id])
+  end
+
+  def player
+    @_player ||= Player.find_or_create_by(team_id: team.id)
+  end
+
+  def user
+    @_user ||= User.find_or_create_by(slack_id: params[:user_id], team_id: team.id) do |u|
+      u.name = params[:user_name]
+    end
+  end
+
+  def playlist
+    @_playlist ||= Playlist.find_or_create_by(user_id: user.id)
+  end
+
+  def dj
+    @_dj ||= DJ.new(player, playlist)
+  end
 
   def shuffle_urls
     %w{
