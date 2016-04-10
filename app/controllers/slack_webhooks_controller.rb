@@ -38,7 +38,7 @@ class SlackWebhooksController < ApplicationController
   end
 
   def playlist
-    @_playlist ||= Playlist.find_or_create_by(user_id: user.id)
+    @_playlist ||= Playlist.find_or_create_by(team_id: team.id)
   end
 
   def dj

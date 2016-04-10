@@ -1,7 +1,7 @@
 class Playlist < ApplicationRecord
 
   has_many :videos
-  belongs_to :user, optional: true
+  belongs_to :team, optional: true
 
   def next_video
     videos.unplayed.oldest_first.limit(1).take

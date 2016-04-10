@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410065952) do
+ActiveRecord::Schema.define(version: 20160410093927) do
 
   create_table "players", force: :cascade do |t|
     t.string   "status",     default: "stopped", null: false
@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(version: 20160410065952) do
   create_table "playlists", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "user_id"
+    t.integer  "team_id"
   end
 
-  add_index "playlists", ["user_id"], name: "index_playlists_on_user_id"
+  add_index "playlists", ["team_id"], name: "index_playlists_on_team_id"
 
   create_table "teams", force: :cascade do |t|
     t.integer  "slack_id"
