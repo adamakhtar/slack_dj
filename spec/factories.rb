@@ -13,6 +13,10 @@ FactoryGirl.define do
   factory :playlist do
   end
 
+  factory :team do
+    slack_id uuid
+  end
+
   factory :user do
     slack_id uuid
   end
