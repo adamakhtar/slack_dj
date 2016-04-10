@@ -1,4 +1,8 @@
 FactoryGirl.define do
+  sequence :uuid do |n|
+    n
+  end
+
   sequence :url do |n|
     "https://www.youtube.com/watch?v=5KU1EqeUuT#{n}"
   end
@@ -7,6 +11,10 @@ FactoryGirl.define do
   end
 
   factory :playlist do
+  end
+
+  factory :user do
+    slack_id uuid
   end
 
   factory :video do
