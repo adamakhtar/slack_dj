@@ -6,7 +6,7 @@ gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 gem 'acts_as_list'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'pg'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
@@ -53,6 +53,10 @@ end
 
 group :test do
   gem 'factory_girl_rails'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
