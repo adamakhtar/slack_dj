@@ -1,11 +1,12 @@
 class DJ
   class PlaylistAlreadyEndedError < StandardError; end
 
-  attr_reader :player, :playlist
+  attr_reader :player, :playlist, :user_rota
 
-  def initialize(player, playlist)
+  def initialize(player, playlist, user_rota)
     @player = player
     @playlist = playlist
+    @user_rota = user_rota
   end
 
   # TODO - use whisper and listen for an event
@@ -31,7 +32,7 @@ class DJ
 
   def start!
     if playlist.any_unplayed?
-      player.play!(playlist.next_video)
+      player.play!(video_selector.start)
     else
       raise PlaylistAlreadyEndedError, "Playlist #{playlist.id} already ended"
     end
@@ -43,9 +44,16 @@ class DJ
 
   def switch!
     if playlist.any_unplayed?
-      player.switch!(playlist.next_video)
+      player.switch!(video_selector.next)
     else
       stop!
     end
   end
+
+  private
+
+  def video_selector
+    @video_selector ||= VideoSelector.new(playlist, user_rota)
+  end
 end
+

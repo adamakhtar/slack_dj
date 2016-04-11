@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410093927) do
+ActiveRecord::Schema.define(version: 20160410113856) do
 
   create_table "players", force: :cascade do |t|
     t.string   "status",     default: "stopped", null: false
@@ -47,8 +47,10 @@ ActiveRecord::Schema.define(version: 20160410093927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "team_id"
+    t.integer  "position"
   end
 
+  add_index "users", ["position"], name: "index_users_on_position"
   add_index "users", ["team_id"], name: "index_users_on_team_id"
 
   create_table "videos", force: :cascade do |t|
@@ -58,9 +60,11 @@ ActiveRecord::Schema.define(version: 20160410093927) do
     t.string   "youtube_id"
     t.datetime "played_at"
     t.integer  "playlist_id"
+    t.integer  "user_id"
   end
 
   add_index "videos", ["playlist_id"], name: "index_videos_on_playlist_id"
+  add_index "videos", ["user_id"], name: "index_videos_on_user_id"
   add_index "videos", ["youtube_id"], name: "index_videos_on_youtube_id"
 
 end

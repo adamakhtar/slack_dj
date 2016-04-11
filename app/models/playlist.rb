@@ -7,8 +7,8 @@ class Playlist < ApplicationRecord
     videos.unplayed.oldest_first.limit(1).take
   end
 
-  def add_video!(url:)
-    videos.create!(url: url)
+  def add_video!(attr={})
+    videos.create!(attr)
   end
 
   def any_unplayed?

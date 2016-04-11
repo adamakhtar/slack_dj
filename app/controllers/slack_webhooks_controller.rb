@@ -2,10 +2,11 @@ class SlackWebhooksController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: :create
 
-  before_action :authorize_team
+  # before_action :authorize_team
+    before_action :set_dev_params
 
   def create
-    playlist.add_video!(url: shuffle_urls.first)
+    playlist.add_video!(url: shuffle_urls.first, user_id: user.id)
     dj.new_video_added!
 
     head :created
@@ -24,7 +25,7 @@ class SlackWebhooksController < ApplicationController
   end
 
   def team
-    @_team ||= Team.find_by_slack_id(params[:team_id])
+    @_team ||= Team.find_or_create_by(slack_id: params[:team_id])
   end
 
   def player
@@ -42,7 +43,12 @@ class SlackWebhooksController < ApplicationController
   end
 
   def dj
-    @_dj ||= DJ.new(player, playlist)
+    @_dj ||= DJ.new(player, playlist, team.user_rota)
+  end
+
+  def set_dev_params
+    params[:team_id] = "1"
+    params[:user_id] = (rand(3) + 1).to_s
   end
 
   def shuffle_urls

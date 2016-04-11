@@ -3,11 +3,18 @@ require 'cgi'
 class Video < ApplicationRecord
 
   belongs_to :playlist, optional: true
+  belongs_to :user, optional: true
 
   before_validation :set_youtube_id
 
+  validates :user_id, :youtube_id, presence: true
+
   def self.oldest_first
     order("created_at ASC")
+  end
+
+  def self.next_for(user)
+    unplayed.where(user_id: user.id).take
   end
 
   def self.unplayed
