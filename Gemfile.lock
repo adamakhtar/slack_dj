@@ -141,6 +141,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    redis (3.2.2)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -210,6 +211,7 @@ DEPENDENCIES
   puma
   rails (>= 5.0.0.beta3, < 5.1)
   rails_12factor
+  redis (~> 3.0)
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   spring
