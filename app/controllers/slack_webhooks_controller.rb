@@ -3,8 +3,6 @@ class SlackWebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
 
   # before_action :authorize_team
-  before_action :set_dev_params
-
   before_action :ensure_valid_command
 
   def create
@@ -66,12 +64,6 @@ class SlackWebhooksController < ApplicationController
       Rails.logger.error { "slack webhook command not valid: #{params[:text]} for team #{params[:team_id]} and user #{params[:user_id]}" }
       head :unprocessable_entity
     end
-  end
-
-  def set_dev_params
-    params[:team_id] = "1"
-    params[:user_id] = (rand(3) + 1).to_s
-    params[:text] = "play #{shuffle_urls.first}"
   end
 
   def shuffle_urls
