@@ -14,6 +14,7 @@ class AddVideo
   def call
     context.playlist.add_video!(video_params)
     context.dj.new_video_added!
+    context.message = "Success! Your video was added to the playlist."
 
   rescue StandardError => e
     context.fail!

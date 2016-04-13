@@ -8,7 +8,7 @@ class SlackWebhooksController < ApplicationController
   def create
     result = AddVideo.call(add_video_params)
     if result.success?
-      head :created
+      render text: result.message, status: :created
     else
       Rails.logger.error { "#{result.error} #{result.backtrace.join("\n")}" }
       head :unprocessable_entity
