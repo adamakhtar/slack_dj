@@ -13,7 +13,7 @@ module Slackdj
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths += ['operations']
 
-    config.action_cable.url = "wss://#{ENV.fetch('APP_DOMAIN')}/cable"
+    config.action_cable.url = "ws://#{ENV.fetch('APP_DOMAIN')}/cable"
     config.action_cable.allowed_request_origins = [ENV.fetch('ACTION_CABLE_ALLOWED_ORIGIN')]
 
     config.generators do |generate|
