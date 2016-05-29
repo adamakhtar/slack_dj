@@ -65,15 +65,4 @@ class SlackWebhooksController < ApplicationController
       head :unprocessable_entity
     end
   end
-
-  def shuffle_urls
-    %w{
-      https://www.youtube.com/watch?v=5KU1EqeUuT4
-      https://www.youtube.com/watch?v=V64W0dXhZ2Y
-      https://www.youtube.com/watch?v=co3FzW89EpY
-      https://www.youtube.com/watch?v=1MPKDRqhZ3c
-      https://www.youtube.com/watch?v=9hGIYiWXq2s
-      https://www.youtube.com/watch?v=4Tr_tCRynfo
-    }.shuffle
-  end
 end
