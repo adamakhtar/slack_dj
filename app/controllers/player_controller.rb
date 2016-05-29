@@ -1,10 +1,14 @@
 class PlayerController < ApplicationController
 
-  before_action :load_and_authorize_team
+  before_action :load_and_authorize_team, except: :test
 
   def show
     @dj = DJ.new(player, playlist, team.user_rota)
     @dj.start! if @dj.waiting?
+  end
+
+  def test
+    redirect_to root_path unless Rails.env.development?
   end
 
   private

@@ -1,0 +1,27 @@
+<%= form_tag slack_webhooks_path, remote: true do %>
+
+  <label>User id
+    <%= text_field_tag :user_id, 1 %>
+  </label>
+
+  <label>Team id
+    <%= text_field_tag :team_id, 1 %>
+  </label>
+
+  <label>
+    <%= radio_button_tag :text, 'play https://www.youtube.com/watch?v=mmi60Bd4jSs' %>
+    Daft Punk Da Funk
+  </label>
+
+  <label>
+    <%= radio_button_tag :text, 'play https://www.youtube.com/watch?v=UclCCFNG9q4' %>
+    Gorillaz Clint Eastwood
+  </label>
+
+  <label>
+    <%= radio_button_tag :text, 'play https://www.youtube.com/watch?v=pbTNZN6m0HM' %>
+    Moloko Sing It Back
+  </label>
+
+  <%= submit_tag 'post' %>
+<% end %>
