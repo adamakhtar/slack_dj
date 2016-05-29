@@ -23,7 +23,7 @@ class SlackWebhooksController < ApplicationController
       user: user,
       playlist: playlist,
       dj: dj,
-      url: command.params[:url]
+      command: params[:text]
     }
   end
 
@@ -55,12 +55,8 @@ class SlackWebhooksController < ApplicationController
     @_dj ||= DJ.new(player, playlist, team.user_rota)
   end
 
-  def command
-    @_command ||= SlackPlayCommand.new(params[:text])
-  end
-
   def ensure_valid_command
-    unless command.valid?
+    unless params[:text] =~ AddVideo::COMMAND
       Rails.logger.error { "slack webhook command not valid: #{params[:text]} for team #{params[:team_id]} and user #{params[:user_id]}" }
       head :unprocessable_entity
     end

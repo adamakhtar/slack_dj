@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe AddVideo, :type => :operation do
   it "adds video to playlist" do
-    url = "http://youtube.com/?v=123456blah"
+    command = "play https://www.youtube.com/watch?v=mmi60Bd4jSs"
     team = double(:team)
     user = double(:user)
     playlist = double(:playlist)
-    allow(playlist).to receive(:add_video!).with(user: user, url: url)
+    allow(playlist).to receive(:add_video!).with(user: user, url: "https://www.youtube.com/watch?v=mmi60Bd4jSs")
     dj = double(:dj)
     allow(dj).to receive(:new_video_added!)
 
@@ -14,7 +14,7 @@ RSpec.describe AddVideo, :type => :operation do
       team: team,
       user: user,
       playlist: playlist,
-      url: url,
+      command: command,
       dj: dj
     )
 
