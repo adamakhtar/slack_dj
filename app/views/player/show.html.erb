@@ -24,7 +24,7 @@
             width: '640',
             videoId: videoId,
             playerVars: {
-              controls: 0
+              controls: '<%= Rails.env.development? ? 1 : 0 %>'
             },
             events: {
               'onReady': this.onPlayerReady,
