@@ -1,6 +1,6 @@
 class Playlist < ApplicationRecord
 
-  has_many :videos
+  has_many :videos, dependent: :destroy
   belongs_to :team, optional: true
 
   def next_video
