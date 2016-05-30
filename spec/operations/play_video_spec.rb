@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AddVideo, :type => :operation do
+RSpec.describe PlayVideo, :type => :operation do
   it "adds video to playlist" do
     command = "play https://www.youtube.com/watch?v=mmi60Bd4jSs"
     team = double(:team)
@@ -10,7 +10,7 @@ RSpec.describe AddVideo, :type => :operation do
     dj = double(:dj)
     allow(dj).to receive(:new_video_added!)
 
-    result = AddVideo.call(
+    result = PlayVideo.call(
       team: team,
       user: user,
       playlist: playlist,

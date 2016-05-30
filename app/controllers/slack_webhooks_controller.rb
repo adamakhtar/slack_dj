@@ -6,7 +6,7 @@ class SlackWebhooksController < ApplicationController
   before_action :ensure_valid_command
 
   def create
-    result = AddVideo.call(add_video_params)
+    result = PlayVideo.call(add_video_params)
     if result.success?
       render text: result.message, status: :created
     else
@@ -56,7 +56,7 @@ class SlackWebhooksController < ApplicationController
   end
 
   def ensure_valid_command
-    unless params[:text] =~ AddVideo::COMMAND
+    unless params[:text] =~ PlayVideo::COMMAND
       Rails.logger.error { "slack webhook command not valid: #{params[:text]} for team #{params[:team_id]} and user #{params[:user_id]}" }
       head :unprocessable_entity
     end

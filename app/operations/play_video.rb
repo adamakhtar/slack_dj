@@ -1,7 +1,7 @@
 require 'uri'
 require 'cgi'
 
-class AddVideo
+class PlayVideo
   include Glo::Op
 
   COMMAND = /^play/
