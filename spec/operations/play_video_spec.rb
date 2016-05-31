@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe PlayVideo, :type => :operation do
+  it "matches with correct commmand" do
+    result = PlayVideo.match?("play http://example.com")
+    expect(result).to be_truthy
+  end
+
   it "adds video to playlist" do
     command = "play https://www.youtube.com/watch?v=mmi60Bd4jSs"
     team = double(:team)

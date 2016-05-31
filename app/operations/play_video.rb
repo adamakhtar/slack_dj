@@ -4,8 +4,6 @@ require 'cgi'
 class PlayVideo
   include Glo::Op
 
-  COMMAND = /^play/
-
   # Expects:
   # team
   # user
@@ -31,6 +29,10 @@ class PlayVideo
   rescue StandardError => e
     context.fail!
     context.errors = e.message
+  end
+
+  def self.match?(command)
+    command =~ /^play/
   end
 
   private
