@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410113856) do
+ActiveRecord::Schema.define(version: 20160531135134) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "players", force: :cascade do |t|
     t.string   "status",     default: "stopped", null: false
@@ -21,9 +24,9 @@ ActiveRecord::Schema.define(version: 20160410113856) do
     t.integer  "team_id"
   end
 
-  add_index "players", ["status"], name: "index_players_on_status"
-  add_index "players", ["team_id"], name: "index_players_on_team_id"
-  add_index "players", ["video_id"], name: "index_players_on_video_id"
+  add_index "players", ["status"], name: "index_players_on_status", using: :btree
+  add_index "players", ["team_id"], name: "index_players_on_team_id", using: :btree
+  add_index "players", ["video_id"], name: "index_players_on_video_id", using: :btree
 
   create_table "playlists", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -31,7 +34,7 @@ ActiveRecord::Schema.define(version: 20160410113856) do
     t.integer  "team_id"
   end
 
-  add_index "playlists", ["team_id"], name: "index_playlists_on_team_id"
+  add_index "playlists", ["team_id"], name: "index_playlists_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.integer  "slack_id"
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 20160410113856) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "teams", ["slack_id"], name: "index_teams_on_slack_id"
+  add_index "teams", ["slack_id"], name: "index_teams_on_slack_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.integer  "slack_id"
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 20160410113856) do
     t.integer  "position"
   end
 
-  add_index "users", ["position"], name: "index_users_on_position"
-  add_index "users", ["team_id"], name: "index_users_on_team_id"
+  add_index "users", ["position"], name: "index_users_on_position", using: :btree
+  add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.string   "url"
@@ -61,10 +64,11 @@ ActiveRecord::Schema.define(version: 20160410113856) do
     t.datetime "played_at"
     t.integer  "playlist_id"
     t.integer  "user_id"
+    t.string   "title"
   end
 
-  add_index "videos", ["playlist_id"], name: "index_videos_on_playlist_id"
-  add_index "videos", ["user_id"], name: "index_videos_on_user_id"
-  add_index "videos", ["youtube_id"], name: "index_videos_on_youtube_id"
+  add_index "videos", ["playlist_id"], name: "index_videos_on_playlist_id", using: :btree
+  add_index "videos", ["user_id"], name: "index_videos_on_user_id", using: :btree
+  add_index "videos", ["youtube_id"], name: "index_videos_on_youtube_id", using: :btree
 
 end
