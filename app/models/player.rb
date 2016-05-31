@@ -39,6 +39,7 @@ class Player < ApplicationRecord
   def stop!
     Player.transaction do
       if playing? and eject_video and update_attribute(:status, "stopped")
+        Cable.broadcast 'player_channel', stop: true
         true
       else
         raise PlayerAlreadyStoppedError, "Player #{self.id} is already stopped."

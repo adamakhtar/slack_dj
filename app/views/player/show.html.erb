@@ -18,6 +18,10 @@
         }
       },
 
+      stop: function(){
+        this._player.stopVideo();
+      },
+
       initializePlayer: function(videoId){
          return new YT.Player('player', {
             height: '390',

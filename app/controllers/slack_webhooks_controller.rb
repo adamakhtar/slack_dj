@@ -11,7 +11,7 @@ class SlackWebhooksController < ApplicationController
       render text: result.message, status: :created
     else
       Rails.logger.error { "#{result.errors}" }
-      head :unprocessable_entity
+      render text: result.errors, status: :unprocessable_entity
     end
   end
 
@@ -62,7 +62,8 @@ class SlackWebhooksController < ApplicationController
   def commands
     [
       PlayVideo,
-      FindVideo
+      FindVideo,
+      SkipVideo
     ]
   end
 
