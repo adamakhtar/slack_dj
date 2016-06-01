@@ -2,7 +2,6 @@ class SlackWebhooksController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: :create
 
-  # before_action :authorize_team
   before_action :ensure_valid_command
 
   def create
@@ -25,12 +24,6 @@ class SlackWebhooksController < ApplicationController
       dj: dj,
       command: params[:text]
     }
-  end
-
-  def authorize_team
-    if team.token != params[:token]
-      head :unprocessable_entity
-    end
   end
 
   def team

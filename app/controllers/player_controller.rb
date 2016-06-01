@@ -1,6 +1,6 @@
 class PlayerController < ApplicationController
 
-  before_action :load_and_authorize_team, except: :test
+  before_action :load_team, except: :test
 
   def show
     @dj = DJ.new(player, playlist, team.user_rota)
@@ -13,7 +13,7 @@ class PlayerController < ApplicationController
 
   private
 
-  def load_and_authorize_team
+  def load_team
     @_team = Team.where(slack_id: params[:id]).take!
 
   rescue ActiveRecord::RecordNotFound => e
