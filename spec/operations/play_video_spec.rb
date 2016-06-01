@@ -10,9 +10,16 @@ RSpec.describe PlayVideo, :type => :operation do
     command = "play https://www.youtube.com/watch?v=mmi60Bd4jSs"
     team = double(:team)
     user = double(:user)
+    video = double(:video, title: 'Michael Jackson Thriller')
     playlist = double(:playlist)
-    allow(playlist).to receive(:add_video!).with(user: user, url: "https://www.youtube.com/watch?v=mmi60Bd4jSs")
+    allow(playlist).to receive(:add_video!).with(
+      user: user,
+      url: "https://www.youtube.com/watch?v=mmi60Bd4jSs",
+      title: video.title
+    )
     dj = double(:dj)
+    allow(Yt::Video).to receive(:new).and_return video
+
     allow(dj).to receive(:new_video_added!)
 
     result = PlayVideo.call(

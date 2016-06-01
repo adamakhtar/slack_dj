@@ -12,10 +12,9 @@ class PlayVideo
   # command string
   #
   def call
-    url = extract_url
-
-    if url.valid?
+    if url.valid? and video.present?
       context.playlist.add_video!(
+        title: video.title,
         url: url.to_s,
         user: context.user
       )
@@ -23,7 +22,7 @@ class PlayVideo
       context.message = "Success! Your video was added to the playlist."
     else
       context.fail!
-      context.errors = "That is not a valid youtube url."
+      context.errors = "That doesn't look like a valid youtube url. "
     end
 
   rescue StandardError => e
@@ -40,5 +39,17 @@ class PlayVideo
   def extract_url
     urls = URI.extract(context.command)
     YouTubeUrl.new(urls.first || "")
+  end
+
+  def fetch_video
+    @video = Yt::Video.new(url:  url.to_s)
+  end
+
+  def url
+    @url ||= extract_url
+  end
+
+  def video
+    @video ||= fetch_video
   end
 end

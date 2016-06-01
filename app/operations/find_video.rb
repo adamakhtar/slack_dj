@@ -12,9 +12,8 @@ class FindVideo
     video  = search_youtube
 
     if video.present?
-      Rails.logger.error {video.to_yaml}
-      Rails.logger.error {query}
       context.playlist.add_video!(
+        title: video.title,
         url: "https://www.youtube.com/watch?v=#{video.id}",
         user: context.user
       )
