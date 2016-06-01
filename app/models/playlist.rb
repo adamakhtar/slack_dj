@@ -18,4 +18,8 @@ class Playlist < ApplicationRecord
   def all_played?
     videos.unplayed.none?
   end
+
+  def last_played(amount=20)
+    videos.played.order(played_at: :desc).limit(amount)
+  end
 end

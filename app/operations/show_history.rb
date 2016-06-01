@@ -49,6 +49,6 @@ class ShowHistory
   end
 
   def played_videos
-    context.playlist.videos.played
+    context.playlist.last_played(20)
   end
 end
