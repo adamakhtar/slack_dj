@@ -6,7 +6,7 @@ class SlackWebhooksController < ApplicationController
   before_action :ensure_valid_command
 
   def create
-    result = operation.call(add_video_params)
+    result = operation.call(create_params)
     if result.success?
       render text: result.message, status: :created
     else
@@ -17,7 +17,7 @@ class SlackWebhooksController < ApplicationController
 
   private
 
-  def add_video_params
+  def create_params
     {
       team: team,
       user: user,
