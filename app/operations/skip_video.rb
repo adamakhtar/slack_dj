@@ -1,3 +1,6 @@
+# Skips the currently playign video
+#
+
 require 'uri'
 require 'cgi'
 

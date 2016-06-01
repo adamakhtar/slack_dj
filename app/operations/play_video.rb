@@ -1,3 +1,7 @@
+# Expects a youtube url to a video. Uses the url
+# to hit youtube api to find the video's title
+# and then adds it to the playlist.
+
 require 'uri'
 require 'cgi'
 
@@ -9,7 +13,7 @@ class PlayVideo
   # user
   # dj
   # playlist
-  # command string
+  # command e.g. "find http://youtube.com?watch=....."
   #
   def call
     if url.valid? and video.present?

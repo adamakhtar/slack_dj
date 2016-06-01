@@ -1,3 +1,8 @@
+# Returns a string formatted list
+# of all the commands you can use
+# on slack.
+
+
 class ShowHelp
   include Glo::Op
   include Rails.application.routes.url_helpers
@@ -7,7 +12,7 @@ class ShowHelp
   # user
   # dj
   # playlist
-  # command string
+  # command e.g. "help"
   #
   def call
     context.message = help_message

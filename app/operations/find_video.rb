@@ -1,3 +1,8 @@
+# Takes the query in given command and searches
+# youtube. Takes the first video returned
+# by youtube api and adds it to the playlist
+#
+
 class FindVideo
   include Glo::Op
 
@@ -6,7 +11,7 @@ class FindVideo
   # user
   # dj
   # playlist
-  # command string
+  # command e.g. "find Michael Jackson Thriller"
   #
   def call
     video  = search_youtube
