@@ -64,7 +64,8 @@ class SlackWebhooksController < ApplicationController
       PlayVideo,
       FindVideo,
       SkipVideo,
-      ShowHelp
+      ShowHelp,
+      ShowHistory
     ]
   end
 

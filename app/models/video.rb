@@ -21,6 +21,10 @@ class Video < ApplicationRecord
     where(played_at: nil)
   end
 
+  def self.played
+    where("played_at IS NOT NULL")
+  end
+
   def played!
     self.update_attribute(:played_at, Time.current)
   end
