@@ -34,6 +34,9 @@ Find a video by artist and name and play it
 
 Skip the currently playing video
 /dj skip
+
+Display previously played videos
+/dj history
 DOC
   end
 
