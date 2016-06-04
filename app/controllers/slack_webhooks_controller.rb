@@ -22,12 +22,12 @@ class SlackWebhooksController < ApplicationController
       user: user,
       playlist: playlist,
       dj: dj,
-      command: params[:text]
+      command: params['text']
     }
   end
 
   def team
-    @_team ||= Team.find_or_create_by(slack_id: params[:team_id])
+    @_team ||= Team.find_or_create_by(slack_id: params['team_id'])
   end
 
   def player
@@ -35,8 +35,8 @@ class SlackWebhooksController < ApplicationController
   end
 
   def user
-    @_user ||= User.find_or_create_by(slack_id: params[:user_id], team_id: team.id) do |u|
-      u.name = params[:user_name]
+    @_user ||= User.find_or_create_by(slack_id: params['user_id'], team_id: team.id) do |u|
+      u.name = params['user_name']
     end
   end
 
@@ -49,7 +49,7 @@ class SlackWebhooksController < ApplicationController
   end
 
   def operation
-    @_operation = commands.detect {|c| c.match?(params[:text]) }
+    @_operation = commands.detect {|c| c.match?(params['text']) }
   end
 
   def commands
