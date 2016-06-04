@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531135134) do
+ActiveRecord::Schema.define(version: 20160604072548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20160531135134) do
   add_index "playlists", ["team_id"], name: "index_playlists_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
-    t.integer  "slack_id"
+    t.string   "slack_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20160531135134) do
   add_index "teams", ["slack_id"], name: "index_teams_on_slack_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.integer  "slack_id"
+    t.string   "slack_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
