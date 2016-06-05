@@ -1,4 +1,4 @@
-App.player = App.cable.subscriptions.create "PlayerChannel",
+ App.player = App.cable.subscriptions.create "PlayerChannel",
   connected: ->
     # Called when the subscription is ready for use on the server
 
@@ -8,8 +8,9 @@ App.player = App.cable.subscriptions.create "PlayerChannel",
   received: (data) ->
     if data.nextVideoId
       window.player.play(data.nextVideoId);
+      $('.alert').hide()
     else if data.playlistEnded
-      $('.playlist-ended-alert').show()
+      $('.alert').show()
     else if data.stop
       window.player.stop()
 
