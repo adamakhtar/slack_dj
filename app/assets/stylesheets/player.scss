@@ -1,3 +1,30 @@
 // Place all the styles related to the player controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+html, body {
+	height: 100%;
+}
+
+.container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.player-wrapper {
+	margin: auto;
+}
+
+.alert {
+	border: 1px solid #CDD5D6;
+	margin: auto;
+	background: #D4F0F3;
+	width: 640px;
+	border-radius: 3px;
+	text-align: center;
+
+	p {
+		opacity: 0.6;
+	}
+}

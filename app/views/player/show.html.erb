@@ -1,90 +1,78 @@
+<div class="container">
+  <% if @dj.finished? %>
+    <div class="alert alert--notice">
+      <h1>Welcome to SlackDJ</h1>
+      <p>Currently there are no videos to play.</p>
+      <p>To add a video type in Slack <em>/dj find michael jackson thriller</em></p>
+      <p>For more options type <em>/dj help</em></p>
+    </div>
+  <% end %>
 
-<% if @dj.finished? %>
-  <div class="alert alert--notice">
-    <p>No videos to play. Add some via slack</p>
+  <div class="player-wrapper">
+    <div id="player"></div>
   </div>
-<% end %>
+</div>
 
-  <div id="player"></div>
-
-  <script type="text/javascript">
-
-    player = {
-      play: function(videoId){
-        if (_.isNil(this._player)) {
-          this._player = this.initializePlayer(videoId);
-        } else {
-          this._player.loadVideoById({videoId: videoId});
-        }
-      },
-
-      stop: function(){
-        this._player.stopVideo();
-      },
-
-      initializePlayer: function(videoId){
-         return new YT.Player('player', {
-            height: '390',
-            width: '640',
-            videoId: videoId,
-            playerVars: {
-              controls: '<%= Rails.env.development? ? 1 : 0 %>'
-            },
-            events: {
-              'onReady': this.onPlayerReady,
-              'onStateChange': this.onPlayerStateChange
-            }
-         });
-      },
-
-      onPlayerReady: function(event) {
-        event.target.playVideo();
-      },
-
-      onPlayerStateChange: function(event) {
-        if (event.data == YT.PlayerState.ENDED) {
-          // TODO emit event and have channel listen for it?
-          window.App.player.next(player._player.getVideoData().video_id);
-        }
+<script type="text/javascript">
+  player = {
+    play: function(videoId){
+      if (_.isNil(this._player)) {
+        this._player = this.initializePlayer(videoId);
+      } else {
+        this._player.loadVideoById({videoId: videoId});
       }
-    };
+    },
 
+    stop: function(){
+      this._player.stopVideo();
+    },
 
-    var tag = document.createElement('script');
+    initializePlayer: function(videoId){
+       return new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: videoId,
+          playerVars: {
+            controls: '<%= Rails.env.development? ? 1 : 0 %>'
+          },
+          events: {
+            'onReady': this.onPlayerReady,
+            'onStateChange': this.onPlayerStateChange
+          }
+       });
+    },
 
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    onPlayerReady: function(event) {
+      event.target.playVideo();
+    },
 
-    var videoId;
-
-    <% if @dj.playing? %>
-      videoId = '<%= @dj.current_video.youtube_id %>';
-    <% end %>
-
-
-    function onYouTubeIframeAPIReady() {
-      if (!_.isNil(videoId)){
-        console.log("frame ready", videoId);
-        player.play(videoId);
+    onPlayerStateChange: function(event) {
+      if (event.data == YT.PlayerState.ENDED) {
+        // TODO emit event and have channel listen for it?
+        window.App.player.next(player._player.getVideoData().video_id);
       }
     }
+  };
 
-    // function createYouTubePlayer(videoId) {
-    //   player = new YT.Player('player', {
-    //     height: '390',
-    //     width: '640',
-    //     videoId: videoId,
-    //     playerVars: {
-    //       // controls: 0
-    //     },
-    //     events: {
-    //       'onReady': onPlayerReady,
-    //       'onStateChange': onPlayerStateChange
-    //     }
-    //   });
 
-    //   return player;
-    // }
-  </script>
+  var tag = document.createElement('script');
+
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var videoId;
+
+  <% if @dj.playing? %>
+    videoId = '<%= @dj.current_video.youtube_id %>';
+  <% end %>
+
+
+  function onYouTubeIframeAPIReady() {
+    if (!_.isNil(videoId)){
+      console.log("frame ready", videoId);
+      player.play(videoId);
+    }
+  }
+</script>
 
