@@ -11,10 +11,13 @@ class PlayerController < ApplicationController
     redirect_to root_path unless Rails.env.development?
   end
 
+  def welcome
+  end
+
   private
 
   def load_team
-    @_team = Team.where(slack_id: params[:id]).take!
+    @_team = Team.take!
 
   rescue ActiveRecord::RecordNotFound => e
     redirect_to '/'
