@@ -4,7 +4,7 @@
 #
 
 class FindVideo
-  include Glo::Op
+  include Interactor
 
   # Expects:
   # team

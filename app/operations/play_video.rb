@@ -6,7 +6,7 @@ require 'uri'
 require 'cgi'
 
 class PlayVideo
-  include Glo::Op
+  include Interactor
 
   # Expects:
   # team

@@ -5,7 +5,7 @@ require 'uri'
 require 'cgi'
 
 class SkipVideo
-  include Glo::Op
+  include Interactor
 
   # Expects:
   # team

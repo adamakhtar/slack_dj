@@ -1,5 +1,9 @@
+# Returns a string formatted table
+# of the last videos played for
+# all users.
+#
 class ShowHistory
-  include Glo::Op
+  include Interactor
 
   class VideoPresenter < SimpleDelegator
     def self.wrap(videos)

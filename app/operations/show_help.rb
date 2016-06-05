@@ -4,7 +4,7 @@
 
 
 class ShowHelp
-  include Glo::Op
+  include Interactor
   include Rails.application.routes.url_helpers
 
   # Expects:
