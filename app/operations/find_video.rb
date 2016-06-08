@@ -14,8 +14,7 @@ class FindVideo
   # command e.g. "find Michael Jackson Thriller"
   #
   def call
-    video  = search_youtube
-
+    video = search_youtube
     if video.present?
       context.playlist.add_video!(
         title: video.title,
@@ -25,13 +24,13 @@ class FindVideo
       context.dj.new_video_added!
       context.message = "Success! #{video.title} was added to the playlist."
     else
-      context.fail!
       context.errors = "Sorry but couldn't find any vides for #{command.query}."
+      context.fail!
     end
 
   rescue StandardError => e
-    context.fail!
     context.errors = e.message
+    context.fail!
   end
 
   def self.match?(command)
@@ -48,6 +47,6 @@ class FindVideo
   end
 
   def query
-    query = context.command.gsub("/^find", "").strip
+    query = context.command.gsub(/^find/, "").strip
   end
 end
