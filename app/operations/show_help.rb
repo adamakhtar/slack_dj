@@ -42,6 +42,6 @@ DOC
   end
 
   def team_url
-    player_url(id: context.team.slack_id, host: ENV.fetch('APP_DOMAIN'))
+    player_url(host: ENV.fetch('APP_DOMAIN'))
   end
 end
