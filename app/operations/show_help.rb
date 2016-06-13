@@ -16,10 +16,6 @@ class ShowHelp
   #
   def call
     context.message = help_message
-
-  rescue StandardError => e
-    context.fail!
-    context.errors = e.message
   end
 
   def self.match?(command)

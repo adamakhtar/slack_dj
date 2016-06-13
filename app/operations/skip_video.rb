@@ -22,10 +22,6 @@ class SkipVideo
       context.dj.switch!
       context.message = "That video was skipped!"
     end
-
-  rescue StandardError => e
-    context.fail!
-    context.errors = e.message
   end
 
   def self.match?(command)

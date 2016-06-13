@@ -28,10 +28,6 @@ class PlayVideo
       context.fail!
       context.errors = "That doesn't look like a valid youtube url. "
     end
-
-  rescue StandardError => e
-    context.fail!
-    context.errors = e.message
   end
 
   def self.match?(command)

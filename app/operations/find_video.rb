@@ -24,13 +24,9 @@ class FindVideo
       context.dj.new_video_added!
       context.message = "Success! #{video.title} was added to the playlist."
     else
-      context.errors = "Sorry but couldn't find any vides for #{command.query}."
+      context.errors = "Sorry but couldn't find any vides for #{query}."
       context.fail!
     end
-
-  rescue StandardError => e
-    context.errors = e.message
-    context.fail!
   end
 
   def self.match?(command)

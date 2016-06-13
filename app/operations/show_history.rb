@@ -31,9 +31,6 @@ class ShowHistory
   #
   def call
     context.message = played_videos_report
-  rescue StandardError => e
-    context.fail!
-    context.errors = e.message
   end
 
   def self.match?(command)
