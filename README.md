@@ -40,8 +40,8 @@ heroku info
 heroku config:set APP_DOMAIN=my_app_name.herokuapp.com  
 *do not include the http part*
 
-heroku config:set ACTION_CABLE_ALLOWED_ORIGIN=https://my_app_name.herokuapp.com 
-*DO inlude the http part*
+heroku config:set ACTION_CABLE_ALLOWED_ORIGIN=http://my_app_name.herokuapp.com 
+*DO inlude the http part - http NOT https*
 
 heroku config:set YOUTUBE_ACCESS_TOKEN=the_api_key_you_got_earlier
 ```
