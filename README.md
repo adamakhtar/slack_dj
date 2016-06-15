@@ -1,3 +1,4 @@
+![slack_dj](https://raw.githubusercontent.com/adamakhtar/assets_for_readmes/master/slackdj/intro_for_readme.png)
 
 **Heads up!** This project is not affiliated with the company who made Slack in any way. It's just a fun little project I wrote.
 
