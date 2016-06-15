@@ -1,6 +1,6 @@
 class PlayerController < ApplicationController
 
-  before_action :load_team, except: :test
+  before_action :load_team, except: [:test, :welcome]
 
   def show
     @dj = DJ.new(player, playlist, team.user_rota)
