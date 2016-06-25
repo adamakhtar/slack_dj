@@ -10,7 +10,7 @@ Whether you are all in the same office or all working remotely the apps player w
 
 Team members are free to add as many songs as they like with a couple of handy slack commands:
 
-add a yotube video via its url
+add a youtube video via its url
 `/dj play https://www.youtube.com/watch?v=dQw4w9WgXcQ`
 
 add a video by its name
