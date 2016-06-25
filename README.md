@@ -29,13 +29,10 @@ Once you have the key then run the following
 git clone https://github.com/adamakhtar/slack_dj.git
 
 # cd into the repo and create a heroku app 
-heroku create my_app_name   
+heroku create my_app_name # note the apps url
 
 # get a free redis instance 
 heroku addons:create redistogo 
-
-# get the url of your new heorku app by running..
-heroku info
 
 # configure the heroku app by running 
 heroku config:set APP_DOMAIN=my_app_name.herokuapp.com  
@@ -45,6 +42,10 @@ heroku config:set ACTION_CABLE_ALLOWED_ORIGIN=http://my_app_name.herokuapp.com
 *DO inlude the http part - http NOT https*
 
 heroku config:set YOUTUBE_ACCESS_TOKEN=the_api_key_you_got_earlier
+
+# push the project to heroku and migrate
+git push heroku master
+heroku run rake db:migrate
 ```
 
 Finally head to your slack team settings and go to 
